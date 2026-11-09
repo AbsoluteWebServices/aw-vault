@@ -1,4 +1,8 @@
-name = "nodewarden"
+name = "aw-vault"
+account_id = "1c8ea0eba04504cde181a9693a171554"
+workers_dev = false
+preview_urls = false
+routes = [ { pattern = "vault.absoluteweb.dev", custom_domain = true } ]
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
@@ -12,12 +16,17 @@ html_handling = "none"
 not_found_handling = "single-page-application"
 run_worker_first = true
 
+[vars]
+WEBAUTHN_RP_ID = "vault.absoluteweb.dev"
+WEBAUTHN_RP_NAME = "Absolute Web Vault"
+
 [triggers]
 crons = [ "*/5 * * * *" ]
 
 [[d1_databases]]
 binding = "DB"
-database_name = "nodewarden-db"
+database_name = "aw-vault-db"
+database_id = "2d0bb666-e1ec-4679-97a1-c11ec0acd4b3"
 
 [[durable_objects.bindings]]
 name = "NOTIFICATIONS_HUB"
@@ -29,7 +38,7 @@ class_name = "BackupTransferRunner"
 
 [[r2_buckets]]
 binding = "ATTACHMENTS"
-bucket_name = "nodewarden-attachments"
+bucket_name = "aw-vault-attachments"
 
 [[migrations]]
 tag = "v1-notifications-hub"

@@ -54,6 +54,9 @@ function resolveInitialLocale(): Locale {
     const langs = Array.isArray(navigator.languages) ? navigator.languages : [navigator.language];
     for (const lang of langs) {
       const normalized = String(lang || '').toLowerCase();
+      // English is a supported locale too: stop at the first English entry instead of
+      // skipping past it to a lower-preference language.
+      if (normalized === 'en' || normalized.startsWith('en-')) return 'en';
       if (normalized === 'zh-tw' || normalized === 'zh-hk' || normalized === 'zh-mo' || normalized.includes('hant')) return 'zh-TW';
       if (normalized.startsWith('zh')) return 'zh-CN';
       if (normalized.startsWith('ru')) return 'ru';
